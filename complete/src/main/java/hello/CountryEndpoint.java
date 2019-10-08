@@ -1,5 +1,7 @@
 package hello;
 
+import io.spring.guides.gs_producing_web_service.AddCountryRequest;
+import io.spring.guides.gs_producing_web_service.AddCountryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -8,6 +10,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import io.spring.guides.gs_producing_web_service.GetCountryRequest;
 import io.spring.guides.gs_producing_web_service.GetCountryResponse;
+
+import java.math.BigInteger;
 
 @Endpoint
 public class CountryEndpoint {
@@ -25,6 +29,15 @@ public class CountryEndpoint {
 	public GetCountryResponse getCountry(@RequestPayload GetCountryRequest request) {
 		GetCountryResponse response = new GetCountryResponse();
 		response.setCountry(countryRepository.findCountry(request.getName()));
+
+		return response;
+	}
+
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "addCountryRequest")
+	@ResponsePayload
+	public AddCountryResponse addCountry(@RequestPayload AddCountryRequest request) {
+		AddCountryResponse response = new AddCountryResponse();
+		response.setId(BigInteger.ONE);
 
 		return response;
 	}

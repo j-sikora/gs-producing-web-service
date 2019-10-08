@@ -17,9 +17,31 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="addCountryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="country" type="tns:country"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="addCountryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:integer"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:complexType name="country">
         <xs:sequence>
-            <xs:element name="name" type="xs:string"/>
+            <xs:element name="name">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[a-zA-Z]*"></xs:pattern>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
             <xs:element name="population" type="xs:int"/>
             <xs:element name="capital" type="xs:string"/>
             <xs:element name="currency" type="tns:currency"/>
